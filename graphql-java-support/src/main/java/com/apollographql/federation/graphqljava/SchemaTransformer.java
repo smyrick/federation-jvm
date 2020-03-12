@@ -145,7 +145,7 @@ public final class SchemaTransformer {
         final FederationSdlPrinter.Options options = FederationSdlPrinter.Options.defaultOptions()
                 .includeScalarTypes(true)
                 .includeExtendedScalarTypes(true)
-                .includeSchemaDefintion(true)
+                .includeSchemaDefinition(true)
                 .includeDirectives(true);
         return new FederationSdlPrinter(options).print(originalSchema);
     }
