@@ -2,6 +2,7 @@ package com.apollographql.federation.graphqljava;
 
 import graphql.ExecutionResult;
 import graphql.schema.GraphQLFieldDefinition;
+import graphql.schema.GraphQLNamedType;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.GraphQLType;
 import graphql.schema.GraphQLUnionType;
@@ -125,7 +126,7 @@ class FederationTest {
         final Iterable<String> unionTypes = entityType
                 .getTypes()
                 .stream()
-                .map(GraphQLType::getName)
+                .map(GraphQLNamedType::getName)
                 .sorted()
                 .collect(Collectors.toList());
 
