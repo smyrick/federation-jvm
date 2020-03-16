@@ -16,12 +16,17 @@ import graphql.schema.idl.errors.SchemaProblem;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class SchemaTransformer {
     private static final Object DUMMY = new Object();
+    // Apollo Gateway will fail composition if it sees directive definitions for these
+    private static final Set<String> HIDDEN_DIRECTIVES =
+            new HashSet<>(Arrays.asList("deprecated", "include", "skip"));
     private final GraphQLSchema originalSchema;
     private TypeResolver entityTypeResolver = null;
     private DataFetcher entitiesDataFetcher = null;
@@ -146,7 +151,9 @@ public final class SchemaTransformer {
                 .includeScalarTypes(true)
                 .includeExtendedScalarTypes(true)
                 .includeSchemaDefinition(true)
-                .includeDirectives(true);
+                // Note that includeDirectives() will filter directive definitions and usages, with
+                // the exception of directive usages of @deprecated (which are never removed).
+                .includeDirectives(directive -> !HIDDEN_DIRECTIVES.contains(directive.getName()));
         return new FederationSdlPrinter(options).print(originalSchema);
     }
 }

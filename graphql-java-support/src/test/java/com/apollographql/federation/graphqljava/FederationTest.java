@@ -42,7 +42,7 @@ class FederationTest {
                 "\n" +
                 "type _Service {\n" +
                 "  sdl: String!\n" +
-                "}\n", SchemaUtils.printSchema(federated));
+                "}\n", SchemaUtils.printWithoutStandardDirectiveDefinitions(federated));
 
         final GraphQLType _Service = federated.getType("_Service");
         assertNotNull(_Service, "_Service type present");
@@ -148,6 +148,9 @@ class FederationTest {
                 typeDefinitionRegistry,
                 runtimeWiring
         );
-        Assertions.assertEquals(printerSDL.trim(), new FederationSdlPrinter().print(graphQLSchema).trim());
+        Assertions.assertEquals(
+                printerSDL.trim(),
+                SchemaUtils.printWithoutStandardDirectiveDefinitions(graphQLSchema).trim()
+        );
     }
 }
