@@ -36,7 +36,7 @@ class FederationTest {
     void testEmpty() {
         final GraphQLSchema federated = Federation.transform(emptySDL)
                 .build();
-        Assertions.assertEquals("type Query {\n" +
+        Assertions.assertEquals("type Query @deprecated(reason : \"dummy\") {\n" +
                 "  _service: _Service\n" +
                 "}\n" +
                 "\n" +
