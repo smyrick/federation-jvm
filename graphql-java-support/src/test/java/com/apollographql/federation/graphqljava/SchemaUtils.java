@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 final class SchemaUtils {
-    static final Set<String> standardDirectives =
+    private static final Set<String> standardDirectives =
             new HashSet<>(Arrays.asList("deprecated", "include", "skip"));
 
     private SchemaUtils() {
